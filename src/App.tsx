@@ -17,6 +17,7 @@ function App() {
         </p>
         <Button
           themeColor={'primary'}
+          fillMode={'outline'}
           size={"large"}
           onClick={handleClick}
         >
