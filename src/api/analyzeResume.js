@@ -5,7 +5,7 @@ import axios from "axios";
  */
 
 export async function analyzeResume(resumeText, jobDescription) {
-  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GOOGLE_API_KEY}`;
+  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
 
   // Structured prompt
   const prompt = `
@@ -15,7 +15,7 @@ export async function analyzeResume(resumeText, jobDescription) {
 - Provide a percentage match between the resume and the job description.  
 
 2️⃣ **Key Strengths**  
-- List the candidate’s **strongest** skills and experiences that align well with the job.  
+- List the candidate's **strongest** skills and experiences that align well with the job.  
 
 3️⃣ **Weaknesses (if any)**  
 - Identify gaps in **soft skills, experience, industry best practices, or tooling knowledge** that might impact job performance.  
@@ -24,7 +24,7 @@ export async function analyzeResume(resumeText, jobDescription) {
 - List technical or domain-specific skills mentioned in the job description but missing from the resume.  
 
 5️⃣ **Detailed Experience Alignment**  
-- Break down the candidate’s experience in relation to the **job responsibilities** and indicate how well each requirement is met. Use labels: "Strong Match", "Partial Match", or "Not Covered".  
+- Break down the candidate's experience in relation to the **job responsibilities** and indicate how well each requirement is met. Use labels: "Strong Match", "Partial Match", or "Not Covered".  
 
 6️⃣ **Formatting & Presentation Feedback**  
 - Provide suggestions to **improve resume readability, keyword optimization, bullet point clarity, or structural consistency** (if needed).  
@@ -63,6 +63,8 @@ ${jobDescription}
     "low_priority": ["Minor enhancements"]
   }
 }
+
+IMPORTANT: Return ONLY the JSON object without any markdown formatting or code blocks.
   `;
 
   const requestBody = {
@@ -77,8 +79,18 @@ ${jobDescription}
     // Extract the raw AI response
     const rawText = response.data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
-    // Convert the AI response from text to JSON
-    return JSON.parse(rawText);
+    // Clean the response if it contains markdown code blocks
+    let cleanedText = rawText;
+
+    // Remove markdown code block indicators if present
+    if (rawText.includes("```json")) {
+      cleanedText = rawText.replace(/```json\n|\n```/g, "");
+    } else if (rawText.includes("```")) {
+      cleanedText = rawText.replace(/```\n|\n```/g, "");
+    }
+
+    // Convert the cleaned AI response from text to JSON
+    return JSON.parse(cleanedText);
   } catch (error) {
     console.error("Error analyzing resume:", error);
     return { error: "Failed to analyze resume. Please try again." };

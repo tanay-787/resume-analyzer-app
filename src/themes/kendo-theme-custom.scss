@@ -1,9 +1,224 @@
-// Use the theme with modified primary color via $kendo-colors map.
-// @use "@progress/kendo-theme-default/scss/all.scss" as * with (
-//   $kendo-colors: (
-//     primary: #2757b7,
-//   )
-// );
+// Import the Kendo Bootstrap theme as is
+@use "@progress/kendo-theme-bootstrap/scss/all.scss" as *;
 
-// Use the theme as is.
-@use "@progress/kendo-theme-default/scss/all.scss" as *;
+// Additional custom styles to enhance the theme
+:root {
+  // Background gradient for the app
+  --app-background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  
+  // Card styling
+  --card-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  --card-hover-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  
+  // Custom spacing
+  --content-padding: 2rem;
+  
+  // Custom colors
+  --primary: #6366F1
+  --secondary: #F0F1F4;
+  --info: #4cc9f0;
+  --success: #4caf50;
+  --warning: #ff9800;
+  --error: #f72585;
+}
+
+// Global styles
+body {
+  background: var(--app-background);
+  font-family: 'Poppins', sans-serif;
+}
+
+// Enhanced card styling
+.k-card {
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 0.75rem;
+  
+  &:hover {
+    box-shadow: var(--card-hover-shadow);
+    transform: translateY(-5px);
+  }
+  
+  .k-card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .k-card-title {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .k-card-body {
+    padding: 1.5rem;
+  }
+  
+  .k-card-actions {
+    padding: 1rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+}
+
+// Button enhancements
+.k-button {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  
+  &.k-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, #3a0ca3 100%);
+    
+    &:hover {
+      background: linear-gradient(135deg, #3a56e4 0%, #2f0b82 100%);
+      transform: translateY(-2px);
+    }
+  }
+  
+  &.k-secondary {
+    background: linear-gradient(135deg, var(--secondary) 0%, #301934 100%);
+  }
+  
+  &.k-info {
+    background: linear-gradient(135deg, var(--info) 0%, #4895ef 100%);
+  }
+  
+  &.k-success {
+    background: linear-gradient(135deg, var(--success) 0%, #388e3c 100%);
+  }
+}
+
+// AppBar styling
+.main-appbar {
+  background: linear-gradient(90deg, var(--primary) 0%, #3a0ca3 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  
+  .app-logo h1 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  .user-section {
+    .user-welcome {
+      font-weight: 500;
+    }
+    
+    .k-avatar {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  
+  .auth-buttons .k-button {
+    border-color: rgba(255, 255, 255, 0.5);
+    &:hover {
+      border-color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// Dashboard styling
+.dashboard-container {
+  padding: var(--content-padding);
+  
+  .dashboard-title {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 50px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), #3a0ca3);
+      border-radius: 2px;
+    }
+  }
+  
+  .dashboard-content {
+    gap: 1.5rem;
+  }
+}
+
+// Landing page styling
+.App-header {
+  background: var(--app-background);
+  
+  h1 {
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 1.5rem;
+  }
+  
+  p {
+    color: #666;
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin-bottom: 2rem;
+  }
+  
+  .k-button {
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+// Form styling
+.auth-form {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: var(--card-shadow);
+  padding: 2.5rem;
+  
+  h2 {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .k-input {
+    border-radius: 0.5rem;
+  }
+}
+
+// Resume upload page styling
+.resume-upload-container {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: var(--card-shadow);
+  margin: var(--content-padding);
+  padding: 2rem;
+  
+  h2 {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .upload-section {
+    margin-bottom: 2rem;
+    
+    h3 {
+      font-weight: 600;
+      color: #444;
+    }
+    
+    p {
+      color: #666;
+    }
+  }
+}

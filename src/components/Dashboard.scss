@@ -1,0 +1,44 @@
+.dashboard-container {
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dashboard-title {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  height: 100%;
+  
+  .k-card-header {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .k-card-body {
+    padding: 16px;
+    
+    p {
+      color: #555;
+    }
+  }
+  
+  .k-card-actions {
+    padding: 16px;
+    border-top: 1px solid #e0e0e0;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+}
