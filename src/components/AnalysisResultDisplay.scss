@@ -312,4 +312,61 @@
     border-top: 1px solid var(--border);
     background-color: rgba(255, 255, 255, 0.03);
   }
+
+}
+
+.analysis-result-display .k-panelbar .k-link:hover, .analysis-result-display .k-panelbar .k-link:focus, .analysis-result-display .k-panelbar .k-link.k-selected {
+    color: var(--primary) !important;
+    background-color: var(--border);
+}
+
+
+.analysis-result-display .k-panelbar .k-link:hover, .analysis-result-display .k-panelbar .k-link:focus, .analysis-result-display .k-panelbar .k-link {
+    color: var(--primary) !important;
+    background-color: var(--border);
+}
+
+// More aggressive overrides for KendoReact PanelBar colors
+.analysis-result-display {
+  // Override the blue background in the active panel
+  .k-panelbar > .k-item > .k-link.k-selected {
+    background-color: rgba(168, 127, 251, 0.1) !important;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+  }
+  
+  // Override all panel header links
+  .k-panelbar .k-link {
+    color: var(--secondary) !important;
+    
+    &:hover, &:focus, &.k-selected {
+      color: var(--primary) !important;
+    }
+  }
+  
+  // Override the expand/collapse icons
+  .k-panelbar .k-panelbar-expand, 
+  .k-panelbar .k-panelbar-collapse {
+    color: var(--primary) !important;
+  }
+  
+  // Override the progress bar color
+  .k-progressbar .k-progress-status {
+    background-color: var(--primary) !important;
+  }
+  
+  // Override the Key Strengths panel specifically
+  .k-panelbar > .k-item:first-child > .k-link {
+    color: var(--primary) !important;
+  }
+}
+
+// Add global overrides for Kendo UI components
+:root {
+  --kendo-link-text: var(--primary);
+  --kendo-link-hover-text: var(--primary);
+  --kendo-link-active-text: var(--primary);
+  --kendo-primary: var(--primary);
+  --kendo-primary-hover: var(--primary);
+  --kendo-primary-active: var(--primary);
 }

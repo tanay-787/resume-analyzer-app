@@ -152,11 +152,11 @@ const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ analysisR
             </div>
           </div>
 
-          <PanelBar className="analysis-panel-bar">
+          <PanelBar className="analysis-panel-bar custom-panel-bar">
             <PanelBarItem 
               title="Key Strengths" 
               expanded={true}
-              className="panel-strengths"
+              className="panel-strengths custom-panel-item"
             >
               <div className="panel-content">
                 {renderList(strengths)}
@@ -212,7 +212,7 @@ const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ analysisR
         </CardBody>
       </Card>
 
-      {showFullDialog && (
+      {/* {showFullDialog && (
         <Dialog title="Complete Analysis Results" onClose={() => setShowFullDialog(false)} width={800}>
           <div className="full-analysis-dialog">
             <pre className="result-content">{JSON.stringify(analysisResult, null, 2)}</pre>
@@ -221,7 +221,7 @@ const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ analysisR
             <Button onClick={() => setShowFullDialog(false)}>Close</Button>
           </DialogActionsBar>
         </Dialog>
-      )}
+      )} */}
     </div>
   );
 };
