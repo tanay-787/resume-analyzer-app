@@ -1,71 +1,120 @@
-Sure! Here is a drafted README.md file for your project:
-
-```markdown
 # Resume Analyzer App
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![React](https://img.shields.io/badge/React-18-blue.svg)
+![KendoReact](https://img.shields.io/badge/KendoReact-10.0.0-purple.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)
 
-## Table of Contents
-- [About the Project](#about-the-project)
-- [Built With](#built-with)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Available Scripts](#available-scripts)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
-## About the Project
-The Resume Analyzer App is a web application that helps users analyze and improve their resumes. The app provides insights on various aspects of the resume and suggests improvements to make it more appealing to recruiters.
+## 🚀 About the Project
 
-## Built With
-This project is built using the following technologies:
-- **React**: A JavaScript library for building user interfaces.
-- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
-- **SCSS**: A CSS preprocessor that adds special features such as variables and nested rules.
-- **HTML**: The standard markup language for creating web pages.
+Resume Analyzer is an intelligent application that helps job seekers optimize their resumes for specific job descriptions. Using AI-powered analysis, the app provides personalized feedback on your resume, highlighting strengths, identifying weaknesses, and suggesting improvements to increase your chances of landing interviews.
 
-## Getting Started
-To get a local copy up and running follow these simple steps.
+### ✨ Key Features
+
+- **AI-Powered Resume Analysis**: Compare your resume against job descriptions to find the perfect match
+- **Skills Gap Analysis**: Identify missing skills and experience required for your target roles
+- **Improvement Suggestions**: Get actionable recommendations prioritized by importance
+- **Experience Alignment**: See how well your experience matches job requirements
+- **Formatting Feedback**: Receive tips on resume structure and presentation
+- **Secure Authentication**: Google Sign-In and email/password options with Firebase
+
+## 🛠️ Built With
+
+- **Frontend**: React, TypeScript, SCSS
+- **UI Components**: KendoReact UI Library
+- **Authentication**: Firebase Authentication
+- **Database**: Firebase Firestore
+- **AI Integration**: Google Gemini API
+- **PDF Processing**: PDF.js
+
+## 🏁 Getting Started
 
 ### Prerequisites
-Make sure you have the following installed on your local machine:
-- Node.js
-- npm (Node Package Manager)
+
+- Node.js (v16 or higher)
+- npm or yarn
+- A Firebase account (for authentication and database)
+- Google Gemini API key
 
 ### Installation
+
 1. Clone the repository:
    ```sh
-   git clone https://github.com/tanay-787/resume-analyzer-app.git
-   ```
-2. Navigate to the project directory:
-   ```sh
+   git clone https://github.com/yourusername/resume-analyzer-app.git
    cd resume-analyzer-app
    ```
-3. Install the dependencies:
+
+2. Install dependencies:
    ```sh
    npm install
    ```
 
-## Usage
-To start the application in development mode, run:
-```sh
-npm start
-```
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits, and you will see any lint errors in the console.
+3. Create a `.env` file in the root directory with your Firebase and Gemini API credentials:
+   ```
+   VITE_FIREBASE_API_KEY=your_firebase_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+   VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+   VITE_FIREBASE_APP_ID=your_firebase_app_id
+   VITE_GEMINI_API_KEY=your_gemini_api_key
+   ```
 
-## Available Scripts
-In the project directory, you can run the following scripts:
+4. Start the development server:
+   ```sh
+   npm run dev
+   ```
 
-### `npm start`
-Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 📋 Usage
 
-### `npm test`
-Launches the test runner in interactive watch mode. See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Sign Up/Login**: Create an account or sign in with Google
+2. **Upload Resume**: Upload your resume in PDF or TXT format
+3. **Enter Job Description**: Paste the job description you're targeting
+4. **Analyze**: Get instant feedback on how well your resume matches the job
+5. **Implement Suggestions**: Use the prioritized recommendations to improve your resume
 
-### `npm run build`
-Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified, and the filenames include the hashes. Your app is ready to be deployed!
+## 📊 Analysis Results
 
+The app provides comprehensive analysis including:
 
+- Overall skills match percentage
+- Key strengths relevant to the job
+- Weaknesses that might hinder your application
+- Missing skills required for the position
+- Experience alignment with job requirements
+- Formatting and presentation feedback
+- Prioritized improvement suggestions
+
+## 🧰 Available Scripts
+
+- `npm run dev` - Start the development server
+- `npm run build` - Build the app for production
+- `npm run preview` - Preview the production build locally
+- `npm run lint` - Run ESLint to check code quality
+
+## 📱 Responsive Design
+
+The Resume Analyzer App is fully responsive and works seamlessly across desktop, tablet, and mobile devices.
+
+## 🔒 Privacy
+
+Your resume data and analysis results are securely stored and only accessible to you. We do not share your information with third parties.
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📬 Contact
+
+Project Link: [https://github.com/yourusername/resume-analyzer-app](https://github.com/yourusername/resume-analyzer-app)
+
+---
+
+<p align="center">
+  Made with ❤️ using KendoReact UI Components
+</p>
