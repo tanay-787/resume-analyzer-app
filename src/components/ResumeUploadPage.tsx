@@ -102,12 +102,6 @@ const ResumeUploadPage: React.FC = () => {
     } catch (err: any) {
       if (err.message && err.message.includes("API key")) {
         setError(err.message);
-        // Suggest setting up API key
-        setTimeout(() => {
-          if (confirm("Would you like to set up your API key now?")) {
-            setShowApiKeyDialog(true);
-          }
-        }, 500);
       } else {
         setError("Failed to analyze resume. Please try again.");
         console.error(err);

@@ -5,6 +5,7 @@ import { firestore } from "../config/firebaseConfig";
 import { Notification, NotificationGroup } from "@progress/kendo-react-notification";
 import { eyeIcon, infoCircleIcon, linkIcon, userIcon, chartColumnRangeIcon, warningTriangleIcon } from "@progress/kendo-svg-icons";
 import "./UserProfile.scss";
+import { decryptApiKey } from "./util/encryption-fns";
 
 // Import modular components
 import UserInfoCard from "./profile/UserInfoCard";
@@ -23,9 +24,24 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     const fetchApiKey = async () => {
       if (user) {
-        const userDoc = await getDoc(doc(firestore, "users", user.uid));
-        if (userDoc.exists() && userDoc.data().apiKey) {
-          setApiKey(userDoc.data().apiKey);
+        try {
+          const userDoc = await getDoc(doc(firestore, "users", user.uid));
+          const userData = userDoc.data();
+          
+          if (userData) {
+            // Check for encrypted API key first
+            if (userData.encryptedApiKey && userData.encryptionKey) {
+              // Use the stored encryption key
+              const decryptedKey = await decryptApiKey(userData.encryptedApiKey, userData.encryptionKey);
+              setApiKey(decryptedKey);
+            } 
+            // Fall back to unencrypted key if available
+            else if (userData.apiKey) {
+              setApiKey(userData.apiKey);
+            }
+          }
+        } catch (error) {
+          console.error("Error fetching API key:", error);
         }
       }
     };
