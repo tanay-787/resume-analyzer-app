@@ -74,7 +74,7 @@ export const AuthProvider = ({
             //   navigate("/analyze");
             // } else {
             //   // User needs to set API key
-            //   navigate("/set-api-key");
+            //   
             // }
           } else {
             // Create user document if it doesn't exist
@@ -89,7 +89,7 @@ export const AuthProvider = ({
             setUser(firebaseUser);
             setIsLoggedIn(true);
             // New user, redirect to API key setup
-            navigate("/set-api-key");
+            
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -147,7 +147,7 @@ export const AuthProvider = ({
         setIsLoggedIn(true);
         showNotification("Account created successfully", "success");
         // New user, redirect to API key setup
-        navigate("/set-api-key");
+        
       } else {
         setIsLoggedIn(true);
         showNotification("Successfully signed in", "success");
@@ -159,7 +159,7 @@ export const AuthProvider = ({
           navigate("/analyze");
         } else {
           // User needs to set API key
-          navigate("/set-api-key");
+          
         }
       }
     } catch (error) {
@@ -173,7 +173,7 @@ export const AuthProvider = ({
       await signInWithEmailAndPassword(auth, email, password);
       setIsLoggedIn(true);
       showNotification("Successfully signed in", "success");
-      navigate("/set-api-key");
+      
     } catch (error) {
       showNotification(
         "Failed to sign in: Please re-check credentials and try again",

@@ -29,13 +29,61 @@ import {
   checkIcon,
   xIcon
 } from "@progress/kendo-svg-icons";
+import { firestore } from "../config/firebaseConfig";
+import { getDoc, doc } from "firebase/firestore";
 import AnalysisResultDisplay from "./AnalysisResultDisplay";
 import "./ResumeUploadPage.scss";
 
 // Initialize PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
+
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 const ResumeUploadPage: React.FC = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const checkApiKey = async () => {
+      if (user) {
+        const userDoc = await getDoc(doc(firestore, "users", user.uid));
+        if (!userDoc.exists() || !userDoc.data().apiKey) {
+          setError("You need to set up your API key first in Settings");
+          
+        }
+      }
+    };
+    
+    checkApiKey();
+  }, [user, navigate]);
+  
+  // Modify handleAnalyzeClick to handle API key errors
+  const handleAnalyzeClick = async () => {
+    if (!resumeText || !jobDescription) {
+      setError("Please provide both resume and job description.");
+      return;
+    }
+
+    setError(null);
+    setIsAnalyzing(true);
+
+    try {
+      const result = await analyzeResume(resumeText, jobDescription);
+      setAnalysisResult(result);
+    } catch (err: any) {
+      if (err.message && err.message.includes("API key")) {
+        setError(err.message);
+      } else {
+        setError("Failed to analyze resume. Please try again.");
+        console.error(err);
+      }
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+  
   const [resumeText, setResumeText] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -43,7 +91,6 @@ const ResumeUploadPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [isLoadingFile, setIsLoadingFile] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
 
   // Define stepper items
   const stepperItems = [
@@ -157,26 +204,6 @@ const ResumeUploadPage: React.FC = () => {
     }
     
     return fullText;
-  };
-
-  const handleAnalyzeClick = async () => {
-    if (!resumeText || !jobDescription) {
-      setError("Please provide both resume and job description.");
-      return;
-    }
-
-    setError(null);
-    setIsAnalyzing(true);
-
-    try {
-      const result = await analyzeResume(resumeText, jobDescription);
-      setAnalysisResult(result);
-    } catch (err) {
-      setError("Failed to analyze resume. Please try again.");
-      console.error(err);
-    } finally {
-      setIsAnalyzing(false);
-    }
   };
 
   const renderResumeStep = () => {

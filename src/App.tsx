@@ -10,8 +10,8 @@ import ResumeUploadPage from './components/ResumeUploadPage';
 import { AuthProvider } from './context/AuthContext';
 
 // Authentication-related components
-import APIKeySetup from './components/ApiKeySetup';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import UserProfile from './components/UserProfile';
 
 function App() {
   return (
@@ -25,18 +25,19 @@ function App() {
             </MainLayout>
           } />
           
-          {/* Protected Routes */}
-          <Route path="/set-api-key" element={
-            <ProtectedRoute>
-              <MainLayout>
-                <APIKeySetup />
-              </MainLayout>
-            </ProtectedRoute>
-          } />
+
           <Route path="/analyze" element={
             <ProtectedRoute>
               <MainLayout>
                 <ResumeUploadPage />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+
+<Route path="/profile" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <UserProfile />
               </MainLayout>
             </ProtectedRoute>
           } />

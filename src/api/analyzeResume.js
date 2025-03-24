@@ -1,11 +1,29 @@
 import axios from "axios";
+import { getDoc, doc } from "firebase/firestore";
+import { firestore } from "../config/firebaseConfig";
+import { auth } from "../config/firebaseConfig";
 
 /**
  * Analyzes a resume based on a job description.
  */
 
-export async function analyzeResume(resumeText, jobDescription) {
-  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
+async function analyzeResume(resumeText, jobDescription) {
+  // Get current user
+  const user = auth.currentUser;
+  
+  if (!user) {
+    throw new Error("User not authenticated");
+  }
+  
+  // Fetch user's API key from Firestore
+  const userDoc = await getDoc(doc(firestore, "users", user.uid));
+  
+  if (!userDoc.exists() || !userDoc.data().apiKey) {
+    throw new Error("API key not found. Please set up your API key.");
+  }
+  
+  const apiKey = userDoc.data().apiKey;
+  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
   // Structured prompt
   const prompt = `
@@ -93,6 +111,14 @@ IMPORTANT: Return ONLY the JSON object without any markdown formatting or code b
     return JSON.parse(cleanedText);
   } catch (error) {
     console.error("Error analyzing resume:", error);
-    return { error: "Failed to analyze resume. Please try again." };
+    
+    // Add specific error handling for API key issues
+    if (error.response && error.response.status === 403) {
+      throw new Error("Invalid API key. Please check your API key and try again.");
+    }
+    
+    throw error;
   }
 }
+
+export { analyzeResume };

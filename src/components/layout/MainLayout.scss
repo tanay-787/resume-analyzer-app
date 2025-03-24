@@ -93,3 +93,148 @@
   align-items: center;
   gap: 12px;
 }
+
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  
+  .main-appbar {
+    padding: 0.5rem 1.5rem;
+    
+    .app-logo {
+      text-decoration: none;
+      color: white;
+      
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+    }
+    
+    .user-section {
+      position: relative;
+      
+      .user-menu-container {
+        cursor: pointer;
+      }
+      
+      .user-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+    
+    .auth-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 1rem;
+  }
+  
+  .user-menu-popup {
+    .k-menu {
+      background-color: #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      
+      .k-menu-item {
+        color: white;
+        
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+  }
+
+  
+  
+  
+  .profile-dialog {
+    padding: 1rem;
+      min-width: 400px;
+      max-width: 600px;
+      max-height: 70vh; /* Limit height to 70% of viewport height */
+      overflow-y: auto; /* Enable vertical scrolling */
+      
+      /* Add smooth scrolling */
+      scroll-behavior: smooth;
+   
+    
+    
+    .profile-dialog-content {
+      padding: 1rem;
+      min-width: 400px;
+      max-width: 600px;
+      max-height: 70vh; /* Limit height to 70% of viewport height */
+      overflow-y: auto; /* Enable vertical scrolling */
+      
+      /* Add smooth scrolling */
+      scroll-behavior: smooth;
+      
+      /* Style the scrollbar for better appearance */
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 4px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      .k-dialog-content{
+        padding: 0;
+      }
+    }
+    
+    &.danger-dialog {
+      .k-dialog-titlebar {
+        background-color: rgba(220, 38, 38, 0.1);
+      }
+    }
+  }
+}
+
+// Add this to your existing styles
+  .dialog-title-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    .k-svg-icon {
+      color: var(--primary);
+    }
+    
+    span {
+      font-weight: 500;
+    }
+  }
+  
+  // Make sure the dialog title area has enough space
+  .profile-dialog {
+    .k-dialog-titlebar {
+      padding: 0.75rem 1rem;
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      
+      .k-dialog-title {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
