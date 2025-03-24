@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@progress/kendo-react-buttons";
 import { TextArea } from "@progress/kendo-react-inputs";
 import { analyzeResume } from "../api/analyzeResume";
@@ -8,7 +8,8 @@ import {
   CardBody, 
   CardTitle,
   CardActions,
-  CardHeader
+  CardHeader,
+  Splitter
 } from "@progress/kendo-react-layout";
 import { 
   Stepper, 
@@ -28,6 +29,7 @@ import {
   checkIcon,
   xIcon
 } from "@progress/kendo-svg-icons";
+import AnalysisResultDisplay from "./AnalysisResultDisplay";
 import "./ResumeUploadPage.scss";
 
 // Initialize PDF.js worker
@@ -56,6 +58,58 @@ const ResumeUploadPage: React.FC = () => {
       iconColor: "primary"
     }
   ];
+
+  // Refs for resizable panels
+  const leftPanelRef = useRef<HTMLDivElement>(null);
+  const resizerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Setup resizer functionality
+  useEffect(() => {
+    const resizer = resizerRef.current;
+    const leftPanel = leftPanelRef.current;
+    const container = containerRef.current;
+    
+    if (!resizer || !leftPanel || !container) return;
+    
+    let x = 0;
+    let leftWidth = 0;
+    
+    const mouseDownHandler = (e: MouseEvent) => {
+      x = e.clientX;
+      leftWidth = leftPanel.getBoundingClientRect().width;
+      
+      document.addEventListener('mousemove', mouseMoveHandler);
+      document.addEventListener('mouseup', mouseUpHandler);
+      
+      resizer.style.userSelect = 'none';
+      resizer.style.pointerEvents = 'none';
+    };
+    
+    const mouseMoveHandler = (e: MouseEvent) => {
+      const dx = e.clientX - x;
+      const containerWidth = container.getBoundingClientRect().width;
+      const newLeftWidth = ((leftWidth + dx) / containerWidth) * 100;
+      
+      if (newLeftWidth > 20 && newLeftWidth < 80) {
+        leftPanel.style.width = `${newLeftWidth}%`;
+      }
+    };
+    
+    const mouseUpHandler = () => {
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+      
+      resizer.style.userSelect = '';
+      resizer.style.pointerEvents = '';
+    };
+    
+    resizer.addEventListener('mousedown', mouseDownHandler);
+    
+    return () => {
+      resizer.removeEventListener('mousedown', mouseDownHandler);
+    };
+  }, []);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.length) return;
@@ -125,29 +179,6 @@ const ResumeUploadPage: React.FC = () => {
     }
   };
 
-  const handleStepChange = (e: StepperChangeEvent) => {
-    setCurrentStep(e.value);
-  };
-
-  const handleNextStep = () => {
-    if (currentStep === 0 && !resumeText.trim()) {
-      setError("Please upload or enter your resume text before proceeding.");
-      return;
-    }
-    
-    if (currentStep < 1) {
-      setCurrentStep(currentStep + 1);
-      setError(null);
-    }
-  };
-
-  const handlePrevStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-      setError(null);
-    }
-  };
-
   const renderResumeStep = () => {
     return (
       <Card className="upload-card">
@@ -179,7 +210,7 @@ const ResumeUploadPage: React.FC = () => {
             </div>
           </div>
           
-          <div className="text-area-container">
+          {/* <div className="text-area-container">
             <h4>Or paste your resume text:</h4>
             <TextArea
               placeholder="Paste your resume text here..."
@@ -188,20 +219,8 @@ const ResumeUploadPage: React.FC = () => {
               rows={10}
               className="custom-textarea"
             />
-          </div>
+          </div> */}
         </CardBody>
-        <CardActions className="upload-card-actions">
-          <Button
-            themeColor="primary"
-            fillMode="solid"
-            disabled={!resumeText.trim()}
-            onClick={handleNextStep}
-            className="next-button"
-          >
-            Next Step
-            <SvgIcon icon={arrowRightIcon} />
-          </Button>
-        </CardActions>
       </Card>
     );
   };
@@ -229,34 +248,24 @@ const ResumeUploadPage: React.FC = () => {
           </div>
         </CardBody>
         <CardActions className="upload-card-actions">
-          <div className="button-group">
-            <Button
-              themeColor="light"
-              fillMode="solid"
-              onClick={handlePrevStep}
-              className="back-button"
-            >
-              Back
-            </Button>
-            <Button
-              themeColor="primary"
-              fillMode="solid"
-              onClick={handleAnalyzeClick}
-              disabled={isAnalyzing || !jobDescription.trim() || !resumeText.trim()}
-              className="analyze-button"
-            >
-              {isAnalyzing ? (
-                <>
-                  <Loader size="small" type="infinite-spinner" />
-                  <span>Analyzing...</span>
-                </>
-              ) : (
-                <>
-                  Analyze Resume
-                </>
-              )}
-            </Button>
-          </div>
+          <Button
+            themeColor="primary"
+            fillMode="solid"
+            onClick={handleAnalyzeClick}
+            disabled={isAnalyzing || !jobDescription.trim() || !resumeText.trim()}
+            className="analyze-button"
+          >
+            {isAnalyzing ? (
+              <>
+                <Loader size="small" type="infinite-spinner" />
+                <span>Analyzing...</span>
+              </>
+            ) : (
+              <>
+                Analyze Resume
+              </>
+            )}
+          </Button>
         </CardActions>
       </Card>
     );
@@ -264,37 +273,47 @@ const ResumeUploadPage: React.FC = () => {
 
   return (
     <div className="resume-upload-container">
-    <div className="resume-upload-card">
-      <h2>Resume Analysis</h2>
-      <p className="subtitle">Compare your resume with job descriptions to find the perfect match</p>
-      
-      <div className="stepper-container">
-        <Stepper 
-          value={currentStep} 
-          onChange={handleStepChange} 
-          items={stepperItems}
-          linear={true}
-        />
-      </div>
+      <div className="resume-upload-card">
+        <h2>Resume Analysis</h2>
+        <p className="subtitle">Compare your resume with job descriptions to find the perfect match</p>
+        
+        {error && (
+          <div className="error-message">
+            <SvgIcon icon={xIcon} />
+            <span>{error}</span>
+          </div>
+        )}
 
-      {error && (
-        <div className="error-message">
-          <SvgIcon icon={xIcon} />
-          <span>{error}</span>
+        <div className="custom-layout" ref={containerRef}>
+          <div className="left-panel" ref={leftPanelRef}>
+            <div className="steps-container">
+              <div className="step-content">
+                {renderResumeStep()}
+              </div>
+              <div className="step-content">
+                {renderJobDescriptionStep()}
+              </div>
+            </div>
+          </div>
+          
+          <div className="resizer" ref={resizerRef}></div>
+          
+          <div className="right-panel">
+            {analysisResult ? (
+              <div className="analysis-results">
+                <AnalysisResultDisplay analysisResult={analysisResult} />
+              </div>
+            ) : (
+              <div className="placeholder-content">
+                <div className="placeholder-message">
+                  <SvgIcon icon={clipboardTextIcon} size="xlarge" />
+                  <p>Your analysis results will appear here after processing</p>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      )}
-
-      <div className="step-content">
-        {currentStep === 0 ? renderResumeStep() : renderJobDescriptionStep()}
       </div>
-
-      {analysisResult && (
-        <div className="analysis-results">
-          <h3>Analysis Results</h3>
-          <pre>{JSON.stringify(analysisResult, null, 2)}</pre>
-        </div>
-      )}
-    </div>
     </div>
   );
 };
