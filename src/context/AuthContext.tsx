@@ -64,9 +64,18 @@ export const AuthProvider = ({
           const userDoc = await getDoc(userDocRef);
 
           if (userDoc.exists()) {
-            // Set the Firebase User object directly instead of trying to cast Firestore data
             setUser(firebaseUser);
             setIsLoggedIn(true);
+            
+            // // Check if API key exists
+            // const userData = userDoc.data();
+            // if (userData.apiKey) {
+            //   // User has API key, redirect to analyzer
+            //   navigate("/analyze");
+            // } else {
+            //   // User needs to set API key
+            //   navigate("/set-api-key");
+            // }
           } else {
             // Create user document if it doesn't exist
             const userData = {
@@ -79,6 +88,8 @@ export const AuthProvider = ({
             await setDoc(userDocRef, userData);
             setUser(firebaseUser);
             setIsLoggedIn(true);
+            // New user, redirect to API key setup
+            navigate("/set-api-key");
           }
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -94,7 +105,7 @@ export const AuthProvider = ({
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [navigate]);
 
   // Function to display notification
   const showNotification = (message: string, type: "success" | "error") => {
@@ -132,11 +143,25 @@ export const AuthProvider = ({
           ...userData,
           createdAt: new Date(),
         });
+        
+        setIsLoggedIn(true);
+        showNotification("Account created successfully", "success");
+        // New user, redirect to API key setup
+        navigate("/set-api-key");
+      } else {
+        setIsLoggedIn(true);
+        showNotification("Successfully signed in", "success");
+        
+        // Check if API key exists
+        const userData = userDoc.data();
+        if (userData.apiKey) {
+          // User has API key, redirect to analyzer
+          navigate("/analyze");
+        } else {
+          // User needs to set API key
+          navigate("/set-api-key");
+        }
       }
-
-      setIsLoggedIn(true);
-      showNotification("Successfully signed in with Google", "success");
-      navigate("/dashboard");
     } catch (error) {
       console.error(error);
       showNotification("Failed to sign in with Google", "error");
@@ -148,7 +173,7 @@ export const AuthProvider = ({
       await signInWithEmailAndPassword(auth, email, password);
       setIsLoggedIn(true);
       showNotification("Successfully signed in", "success");
-      navigate("/dashboard");
+      navigate("/set-api-key");
     } catch (error) {
       showNotification(
         "Failed to sign in: Please re-check credentials and try again",

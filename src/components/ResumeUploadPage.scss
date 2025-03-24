@@ -1,51 +1,218 @@
 .resume-upload-container {
-  max-width: 800px;
-  margin: 0 auto;
+    background-color: transparent;
+    display: flex;
+    margin: var(--content-padding);
+    padding: 2rem;
+    justify-content: center;
+    max-height: calc(100vh - 4rem); /* Subtract padding */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.resume-upload-card {
+  width: 80%;
+  max-width: 1200px; /* Add max-width to prevent too wide cards */
   padding: 2rem;
-  
+  background-color: var(--idx-black);
+  border: 3px solid var(--border);
+  border-radius: 1rem;
+  box-shadow: var(--card-shadow);
+  max-height: 100%; /* Ensure card doesn't exceed container height */
+  overflow-y: auto; /* Enable scrolling within the card if needed */
+
+
   h2 {
-    margin-bottom: 2rem;
+    margin-bottom: 2px;
     text-align: center;
+    color: var(--secondary);
+    font-weight: 600;
+    font-size: 2.8rem;
   }
   
-  .upload-section {
+  .subtitle {
+    text-align: center;
+    color: var(--secondary);
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+  
+  .stepper-container {
     margin-bottom: 2rem;
     
-    h3 {
-      margin-bottom: 0.5rem;
+    
+    // Override Kendo Stepper styles
+    .k-stepper {
+      .k-step-list {
+        .k-step {
+          .k-step-link {
+            &:hover {
+              .k-step-indicator {
+                border-color: var(--primary);
+              }
+            }
+            .k-step-label {
+              font-size: 1.3rem;
+              color: var(--secondary);
+            }
+            &.k-step-current {
+              .k-step-label {
+                color: var(--primary);
+              }
+            }
+          }
+          
+          &.k-step-current {
+            .k-step-indicator {
+              background-color: var(--primary);
+             
+            }
+          }
+          
+          &.k-step-done {
+            .k-step-indicator {
+              // background-color: var(--success);
+              // border-color: var(--success);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .step-content {
+    margin-bottom: 2rem;
+  }
+  
+  .upload-card {
+    background-color: rgb(16, 21, 29);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     }
     
-    p {
-      margin-bottom: 1rem;
-      color: #666;
-    }
-    
-    .k-textarea {
-      width: 100%;
-      margin-top: 1rem;
-    }
-    
-    .file-upload-container {
+    .upload-card-header {
       display: flex;
       align-items: center;
-      margin-bottom: 1rem;
+      gap: 12px;
+      padding: 1.25rem 1.5rem;
+      background-color: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid var(--border);
+      
+      .k-card-title {
+        color: var(--secondary);
+        font-weight: 600;
+        font-size: 1.25rem;
+        margin: 0;
+      }
+      
+      .k-svg-icon {
+        color: var(--primary);
+      }
+    }
+    
+    .k-card-body {
+      padding: 1.5rem;
+    }
+    
+    .upload-description {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+  }
+  
+  .file-upload-area {
+    margin-bottom: 1.5rem;
+    
+    .file-upload-container {
+      width: 100%;
       
       .file-input {
         display: none;
       }
       
-      .upload-button {
-        margin-right: 1rem;
-        min-width: 120px;
+      .upload-zone {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2.5rem 1rem;
+        border: 2px dashed var(--border);
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.02);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          border-color: var(--primary);
+          background-color: rgba(168, 127, 251, 0.05);
+        }
+        
+        .k-svg-icon {
+          color: var(--primary);
+          margin-bottom: 1rem;
+        }
+        
+        p {
+          color: var(--secondary);
+          margin-bottom: 0.5rem;
+          font-size: 1rem;
+        }
+        
+        .supported-formats {
+          color: var(--secondary);
+          opacity: 0.6;
+          font-size: 0.85rem;
+        }
+        
+        .file-name {
+          margin-top: 1rem;
+          padding: 0.5rem 1rem;
+          background-color: rgba(168, 127, 251, 0.1);
+          border-radius: 4px;
+          color: var(--primary);
+          font-size: 0.9rem;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        
+        .k-loader {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+  
+  .text-area-container {
+    h4 {
+      color: var(--secondary);
+      margin-bottom: 0.75rem;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    
+    .custom-textarea {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--secondary);
+      
+      &:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(168, 127, 251, 0.2);
       }
       
-      .file-name {
-        color: #666;
-        font-size: 0.9rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 300px;
+      &::placeholder {
+        color: rgba(191, 199, 210, 0.5);
       }
     }
   }

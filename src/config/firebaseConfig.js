@@ -12,10 +12,13 @@ const firebaseConfig = {
   appId: `${import.meta.env.VITE_FIREBASE_APP_ID}`,
 };
 
+//Encryption Key
+const secretKey = `${import.meta.env.VITE_ENCRYPTION_KEY}`
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
 const storage = getStorage(app);
 
-export { auth, firestore, storage };
+export { auth, firestore, storage, secretKey };

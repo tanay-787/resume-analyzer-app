@@ -2,37 +2,29 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--app-background, linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%));
+  background-size: cover;
+  background-position: center center;
+  background-repeat: repeat;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg viewBox=%220 0 2000 1400%22 xmlns=%22http:%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cmask id=%22b%22 x=%220%22 y=%220%22 width=%222000%22 height=%221400%22%3E%3Cpath fill=%22url(%23a)%22 d=%22M0 0h2000v1400H0z%22%2F%3E%3C%2Fmask%3E%3Cpath fill=%22%2310151D%22 d=%22M0 0h2000v1400H0z%22%2F%3E%3Cg mask=%22url(%23b)%22%3E%3Cg style=%22transform-origin:center center%22%3E%3Ccircle cy=%22100%22 r=%224%22 fill=%22%236a6b7e58%22%2F%3E%3Ccircle cx=%22200%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e90%22%2F%3E%3Ccircle cx=%22400%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e95%22%2F%3E%3Ccircle cx=%22600%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e49%22%2F%3E%3Ccircle cx=%22800%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e46%22%2F%3E%3Ccircle cx=%221000%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e14%22%2F%3E%3Ccircle cx=%221200%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e7b%22%2F%3E%3Ccircle cx=%221400%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e81%22%2F%3E%3Ccircle cx=%221600%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e0f%22%2F%3E%3Ccircle cx=%221800%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e8e%22%2F%3E%3Ccircle cx=%222000%22 cy=%22100%22 r=%224%22 fill=%22%236a6b7e53%22%2F%3E%3Ccircle cx=%22100%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7ec4%22%2F%3E%3Ccircle cx=%22300%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7eb4%22%2F%3E%3Ccircle cx=%22500%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7e31%22%2F%3E%3Ccircle cx=%22700%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7eb5%22%2F%3E%3Ccircle cx=%22900%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7ef4%22%2F%3E%3Ccircle cx=%221100%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7ea1%22%2F%3E%3Ccircle cx=%221300%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7e39%22%2F%3E%3Ccircle cx=%221500%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7e5b%22%2F%3E%3Ccircle cx=%221700%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7e64%22%2F%3E%3Ccircle cx=%221900%22 cy=%22300%22 r=%224%22 fill=%22%236a6b7ebd%22%2F%3E%3Ccircle cy=%22500%22 r=%224%22 fill=%22%236a6b7e54%22%2F%3E%3Ccircle cx=%22200%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7ecd%22%2F%3E%3Ccircle cx=%22400%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7eb8%22%2F%3E%3Ccircle cx=%22600%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7e61%22%2F%3E%3Ccircle cx=%22800%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7ed4%22%2F%3E%3Ccircle cx=%221000%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7e7a%22%2F%3E%3Ccircle cx=%221200%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7edc%22%2F%3E%3Ccircle cx=%221400%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7e67%22%2F%3E%3Ccircle cx=%221600%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7ec5%22%2F%3E%3Ccircle cx=%221800%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7ec2%22%2F%3E%3Ccircle cx=%222000%22 cy=%22500%22 r=%224%22 fill=%22%236a6b7e1c%22%2F%3E%3Ccircle cx=%22100%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7e96%22%2F%3E%3Ccircle cx=%22300%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7e64%22%2F%3E%3Ccircle cx=%22500%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7ef5%22%2F%3E%3Ccircle cx=%22700%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7e65%22%2F%3E%3Ccircle cx=%22900%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7e9c%22%2F%3E%3Ccircle cx=%221100%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7e5e%22%2F%3E%3Ccircle cx=%221300%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7e82%22%2F%3E%3Ccircle cx=%221500%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7eb9%22%2F%3E%3Ccircle cx=%221700%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7efc%22%2F%3E%3Ccircle cx=%221900%22 cy=%22700%22 r=%224%22 fill=%22%236a6b7ebc%22%2F%3E%3Ccircle cy=%22900%22 r=%224%22 fill=%22%236a6b7ebe%22%2F%3E%3Ccircle cx=%22200%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7e24%22%2F%3E%3Ccircle cx=%22400%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7e66%22%2F%3E%3Ccircle cx=%22600%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7eef%22%2F%3E%3Ccircle cx=%22800%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7ecc%22%2F%3E%3Ccircle cx=%221000%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7e0a%22%2F%3E%3Ccircle cx=%221200%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7eb4%22%2F%3E%3Ccircle cx=%221400%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7ec4%22%2F%3E%3Ccircle cx=%221600%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7e52%22%2F%3E%3Ccircle cx=%221800%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7ece%22%2F%3E%3Ccircle cx=%222000%22 cy=%22900%22 r=%224%22 fill=%22%236a6b7e27%22%2F%3E%3Ccircle cx=%22100%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7ea0%22%2F%3E%3Ccircle cx=%22300%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7ef3%22%2F%3E%3Ccircle cx=%22500%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7e73%22%2F%3E%3Ccircle cx=%22700%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7eb4%22%2F%3E%3Ccircle cx=%22900%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7e30%22%2F%3E%3Ccircle cx=%221100%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7e34%22%2F%3E%3Ccircle cx=%221300%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7e6b%22%2F%3E%3Ccircle cx=%221500%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7e2e%22%2F%3E%3Ccircle cx=%221700%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7e9b%22%2F%3E%3Ccircle cx=%221900%22 cy=%221100%22 r=%224%22 fill=%22%236a6b7ed1%22%2F%3E%3Ccircle cy=%221300%22 r=%224%22 fill=%22%236a6b7edd%22%2F%3E%3Ccircle cx=%22200%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7ea0%22%2F%3E%3Ccircle cx=%22400%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7e9c%22%2F%3E%3Ccircle cx=%22600%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7eae%22%2F%3E%3Ccircle cx=%22800%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7e6a%22%2F%3E%3Ccircle cx=%221000%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7ed2%22%2F%3E%3Ccircle cx=%221200%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7e70%22%2F%3E%3Ccircle cx=%221400%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7e51%22%2F%3E%3Ccircle cx=%221600%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7e50%22%2F%3E%3Ccircle cx=%221800%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7e0c%22%2F%3E%3Ccircle cx=%222000%22 cy=%221300%22 r=%224%22 fill=%22%236a6b7efe%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cdefs%3E%3CradialGradient id=%22a%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff%22%2F%3E%3Cstop offset=%221%22 stop-color=%22%23fff%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3C%2Fsvg%3E");
 }
 
 .main-appbar {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0 4px 20px rgba(75, 74, 74, 0.29);
+  background: rgb(16, 21, 29);
+  border-bottom: 1px solid rgb(46, 60, 81);
+  padding: 0.1rem 1.5rem;
   
   .app-logo {
     text-decoration: none;
-    
-    h1 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: inherit;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    margin: 0;
   }
   
   .user-section {
-    display: flex;
-    align-items: center;
-    gap: 13px;
+    padding: 1rem;
     
-    .user-welcome {
-      margin-right: 10px;
-      font-weight: 500;
-    }
-    
-    .user-avatar {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
   }
   
   .auth-buttons {
@@ -46,4 +38,58 @@
   display: flex;
   flex-direction: column;
   padding: 0 1rem;
+}
+
+
+
+// Add these styles to your existing MainLayout.scss file
+
+.user-menu-container {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  
+  &:hover .user-avatar {
+    border-color: var(--primary);
+  }
+
+  .user-btn{
+    color: var(--secondary);
+    border-color: rgb(46 60 81);
+    // width: 122.156px;
+  }
+  &:hover .user-btn {
+    border-color: var(--primary);
+  }
+}
+
+.user-menu-popup {
+  background: rgb(16, 21, 29);
+    border-radius: 8px;
+  border-color: rgb(46 60 81);
+
+  .k-menu {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    
+    .k-menu-item {
+      padding: 8px;
+      color: var(--secondary);
+      // background-color: #080A0E;
+      border-color: rgb(46 60 81);
+
+      &:hover {
+        color: var(--primary);
+      }
+    }
+  }
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }

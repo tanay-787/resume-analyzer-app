@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import './App.scss';
 
 // Components
 import MainLayout from './components/layout/MainLayout';
@@ -11,9 +10,8 @@ import ResumeUploadPage from './components/ResumeUploadPage';
 import { AuthProvider } from './context/AuthContext';
 
 // Authentication-related components
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Dashboard from './components/Dashboard';
+import APIKeySetup from './components/ApiKeySetup';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function App() {
   return (
@@ -26,19 +24,21 @@ function App() {
               <LandingPage />
             </MainLayout>
           } />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
           
           {/* Protected Routes */}
-          <Route path="/dashboard" element={
-            <MainLayout>
-              <Dashboard />
-            </MainLayout>
+          <Route path="/set-api-key" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <APIKeySetup />
+              </MainLayout>
+            </ProtectedRoute>
           } />
           <Route path="/analyze" element={
-            <MainLayout>
-              <ResumeUploadPage />
-            </MainLayout>
+            <ProtectedRoute>
+              <MainLayout>
+                <ResumeUploadPage />
+              </MainLayout>
+            </ProtectedRoute>
           } />
           
           {/* Fallback Route */}
