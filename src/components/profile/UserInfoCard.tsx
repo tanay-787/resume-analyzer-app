@@ -39,14 +39,6 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({
     try {
       setLoading(true);
       
-      // Re-authenticate user if needed (for email/password users)
-      if (user.providerData[0].providerId === "password" && deletePassword) {
-        const credential = EmailAuthProvider.credential(
-          user.email || "", 
-          deletePassword
-        );
-        await reauthenticateWithCredential(user, credential);
-      }
       
       // Delete user data from Firestore
       await deleteDoc(doc(firestore, "users", user.uid));
