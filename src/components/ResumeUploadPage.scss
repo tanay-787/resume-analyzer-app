@@ -3,7 +3,6 @@
   display: flex;
   justify-content: center;
   height: calc(100vh - 60px); /* Adjust based on your header height */
-  padding: 1rem;
   overflow: hidden;
 }
 
@@ -11,7 +10,7 @@
   width: 100%;
   max-width: 1600px;
   padding: 1.5rem;
-  padding-top: 0;
+  // padding-top: 0;
   background-color: var(--idx-black);
   border: 3px solid var(--border);
   border-radius: 1rem;
@@ -58,6 +57,7 @@
     display: flex;
     flex: 1;
     overflow: hidden;
+    scroll-behavior: smooth;
     position: relative;
     gap: 1rem;
     height: calc(100vh - 200px);

@@ -10,18 +10,18 @@ import { auth } from "../config/firebaseConfig";
 async function analyzeResume(resumeText, jobDescription) {
   // Get current user
   const user = auth.currentUser;
-  
+
   if (!user) {
     throw new Error("User not authenticated");
   }
-  
+
   // Fetch user's API key from Firestore
   const userDoc = await getDoc(doc(firestore, "users", user.uid));
-  
+
   if (!userDoc.exists() || !userDoc.data().apiKey) {
     throw new Error("API key not found. Please set up your API key.");
   }
-  
+
   const apiKey = userDoc.data().apiKey;
   const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
@@ -111,12 +111,12 @@ IMPORTANT: Return ONLY the JSON object without any markdown formatting or code b
     return JSON.parse(cleanedText);
   } catch (error) {
     console.error("Error analyzing resume:", error);
-    
+
     // Add specific error handling for API key issues
     if (error.response && error.response.status === 403) {
       throw new Error("Invalid API key. Please check your API key and try again.");
     }
-    
+
     throw error;
   }
 }

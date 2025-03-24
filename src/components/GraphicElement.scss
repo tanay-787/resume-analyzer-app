@@ -1,0 +1,153 @@
+.graphic-container {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 280px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .app-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      background: linear-gradient(to right, #e2e8f0, #9d6cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 30px rgba(157, 108, 255, 0.3);
+      letter-spacing: -0.02em;
+    }
+    
+    .resume-graphic {
+      position: absolute;
+      width: 140px;
+      height: 180px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid rgba(157, 108, 255, 0.4);
+      border-radius: 12px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      animation: float 6s ease-in-out infinite;
+      box-shadow: 0 0 30px rgba(157, 108, 255, 0.2);
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 15px;
+        right: 15px;
+        height: 3px;
+        background: rgba(157, 108, 255, 0.7);
+        box-shadow: 0 0 10px rgba(157, 108, 255, 0.8);
+        border-radius: 3px;
+      }
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 15px;
+        right: 30px;
+        height: 2px;
+        background: rgba(157, 108, 255, 0.4);
+        border-radius: 2px;
+      }
+      
+      .resume-line {
+        position: absolute;
+        height: 2px;
+        left: 15px;
+        right: 20px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 2px;
+        
+        &:nth-child(1) { top: 60px; right: 40px; }
+        &:nth-child(2) { top: 80px; right: 15px; }
+        &:nth-child(3) { top: 100px; right: 30px; }
+        &:nth-child(4) { top: 120px; right: 25px; }
+      }
+    }
+    
+    .scan-line {
+      position: absolute;
+      width: 160px;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        rgba(157, 108, 255, 0) 0%, 
+        rgba(157, 108, 255, 0.8) 50%, 
+        rgba(157, 108, 255, 0) 100%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: scan 3s ease-in-out infinite;
+      box-shadow: 0 0 20px rgba(157, 108, 255, 0.6);
+      border-radius: 4px;
+      z-index: 2;
+    }
+    
+    .glow-effect {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, 
+        rgba(157, 108, 255, 0.2) 0%, 
+        rgba(157, 108, 255, 0) 70%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      animation: pulse 4s ease-in-out infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translate(-50%, -40%);
+    }
+    50% {
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  @keyframes scan {
+    0%, 100% {
+      top: 35%;
+      opacity: 0.7;
+    }
+    50% {
+      top: 65%;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: translate(-50%, -40%) scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translate(-50%, -40%) scale(1.1);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .graphic-container {
+      height: 240px;
+      
+      .app-title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .resume-graphic {
+        width: 120px;
+        height: 160px;
+      }
+    }
+  }

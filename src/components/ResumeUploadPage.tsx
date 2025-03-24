@@ -301,9 +301,9 @@ const ResumeUploadPage: React.FC = () => {
   return (
     <div className="resume-upload-container">
       <div className="resume-upload-card">
-        <h2>Resume Analysis</h2>
+        {/* <h2>Resume Analysis</h2>
         <p className="subtitle">Compare your resume with job descriptions to find the perfect match</p>
-        
+         */}
         {error && (
           <div className="error-message">
             <SvgIcon icon={xIcon} />

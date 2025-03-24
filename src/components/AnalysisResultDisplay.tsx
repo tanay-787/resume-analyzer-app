@@ -201,7 +201,6 @@ const AnalysisResultDisplay: React.FC<AnalysisResultDisplayProps> = ({ analysisR
             
             <PanelBarItem 
               title="Improvement Suggestions" 
-              expanded={true}
               className="panel-improvements"
             >
               <div className="panel-content">

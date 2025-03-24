@@ -165,7 +165,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <AppBar className="main-appbar" themeColor='primary'>
         <AppBarSection>
           <Link to="/" className="app-logo">
-            <h1>Resume Analyzer</h1>
+          <h1>Resume Analyzer</h1>
+            <img 
+              src="/noun-ai-generated-fill.svg" 
+              alt="AI Logo" 
+              className="app-logo-icon" 
+            />
           </Link>
         </AppBarSection>
         
