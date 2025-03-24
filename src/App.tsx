@@ -10,6 +10,7 @@ import ResumeUploadPage from './components/ResumeUploadPage';
 import { AuthProvider } from './context/AuthContext';
 
 // Authentication-related components
+
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UserProfile from './components/UserProfile';
 
@@ -25,7 +26,6 @@ function App() {
             </MainLayout>
           } />
           
-
           <Route path="/analyze" element={
             <ProtectedRoute>
               <MainLayout>

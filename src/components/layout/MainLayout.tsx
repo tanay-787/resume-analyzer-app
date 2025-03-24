@@ -213,7 +213,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <div className="auth-buttons">
               <Button onClick={handleLogin} themeColor="primary" fillMode="flat">
                 <span><SvgIcon icon={userIcon} /></span>
-                <span> Login</span>
+                <span> SignUp</span>
               </Button>
             </div>
           )}

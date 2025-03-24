@@ -33,6 +33,8 @@ import { firestore } from "../config/firebaseConfig";
 import { getDoc, doc } from "firebase/firestore";
 import AnalysisResultDisplay from "./AnalysisResultDisplay";
 import "./ResumeUploadPage.scss";
+import { Dialog } from "@progress/kendo-react-dialogs";
+import ApiKeyCard from "./profile/ApiKeyCard";
 
 // Initialize PDF.js worker
 pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -44,20 +46,45 @@ import { useNavigate } from "react-router-dom";
 const ResumeUploadPage: React.FC = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const [showApiKeyDialog, setShowApiKeyDialog] = useState(false);
+  const [apiKey, setApiKey] = useState("");
   
   useEffect(() => {
     const checkApiKey = async () => {
       if (user) {
         const userDoc = await getDoc(doc(firestore, "users", user.uid));
         if (!userDoc.exists() || !userDoc.data().apiKey) {
-          setError("You need to set up your API key first in Settings");
-          
+          setError("You need to set up your API key to use the resume analyzer");
         }
       }
     };
     
     checkApiKey();
   }, [user, navigate]);
+  
+  // Function to show notification
+  const showNotification = (message: string, type: "success" | "error") => {
+    if (type === "success") {
+      setError(null);
+    } else {
+      setError(message);
+    }
+  };
+  
+  // Handle API key dialog close
+  const handleApiKeyDialogClose = () => {
+    setShowApiKeyDialog(false);
+    // Refresh the page or check API key again
+    if (user) {
+      const checkApiKey = async () => {
+        const userDoc = await getDoc(doc(firestore, "users", user.uid));
+        if (userDoc.exists() && (userDoc.data().apiKey || userDoc.data().encryptedApiKey)) {
+          setError(null);
+        }
+      };
+      checkApiKey();
+    }
+  };
   
   // Modify handleAnalyzeClick to handle API key errors
   const handleAnalyzeClick = async () => {
@@ -75,6 +102,12 @@ const ResumeUploadPage: React.FC = () => {
     } catch (err: any) {
       if (err.message && err.message.includes("API key")) {
         setError(err.message);
+        // Suggest setting up API key
+        setTimeout(() => {
+          if (confirm("Would you like to set up your API key now?")) {
+            setShowApiKeyDialog(true);
+          }
+        }, 500);
       } else {
         setError("Failed to analyze resume. Please try again.");
         console.error(err);
@@ -301,13 +334,20 @@ const ResumeUploadPage: React.FC = () => {
   return (
     <div className="resume-upload-container">
       <div className="resume-upload-card">
-        {/* <h2>Resume Analysis</h2>
-        <p className="subtitle">Compare your resume with job descriptions to find the perfect match</p>
-         */}
         {error && (
           <div className="error-message">
             <SvgIcon icon={xIcon} />
             <span>{error}</span>
+            {(error.includes("API key") || error.includes("set up your API key")) && (
+              <Button
+                themeColor="primary"
+                fillMode="flat"
+                className="setup-api-key-btn"
+                onClick={() => setShowApiKeyDialog(true)}
+              >
+                Set up API Key
+              </Button>
+            )}
           </div>
         )}
 
@@ -341,6 +381,18 @@ const ResumeUploadPage: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* API Key Dialog */}
+      {showApiKeyDialog && (
+        <Dialog title="API Key Setup" onClose={handleApiKeyDialogClose} width={500}>
+          <ApiKeyCard 
+            user={user}
+            apiKey={apiKey}
+            setApiKey={setApiKey}
+            showNotification={showNotification}
+          />
+        </Dialog>
+      )}
     </div>
   );
 };
