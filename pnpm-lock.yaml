@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@progress/kendo-data-query':
-        specifier: ^1.7.1
-        version: 1.7.1
       '@progress/kendo-drawing':
         specifier: ^1.21.2
         version: 1.21.2
