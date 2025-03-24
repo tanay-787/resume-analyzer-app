@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, CardActions } from "@progress/kendo-react-layout";
 import { SvgIcon } from "@progress/kendo-react-common";
 import { infoCircleIcon, linkIcon, checkCircleIcon, warningTriangleIcon } from "@progress/kendo-svg-icons";
 import { Input } from "@progress/kendo-react-inputs";
 import { Button } from "@progress/kendo-react-buttons";
 import { Loader } from "@progress/kendo-react-indicators";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { firestore } from "../../config/firebaseConfig";
 import { User } from "firebase/auth";
+import { encryptApiKey, decryptApiKey } from "../util/encryption-fns";
 import "./Dialogs.scss";
 
 interface ApiKeyCardProps {
@@ -29,6 +30,31 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
     type: "success" | "error" | null;
   }>({ message: "", type: null });
 
+  // Fetch and decrypt API key when component mounts
+  useEffect(() => {
+    const fetchApiKey = async () => {
+      if (user) {
+        try {
+          setLoading(true);
+          const userDoc = await getDoc(doc(firestore, "users", user.uid));
+          const userData = userDoc.data();
+          
+          if (userData && userData.encryptedApiKey) {
+            // Use user's UID as the secret key for decryption
+            const decryptedKey = await decryptApiKey(userData.encryptedApiKey, user.uid);
+            setApiKey(decryptedKey);
+          }
+        } catch (error) {
+          console.error("Error fetching API key:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchApiKey();
+  }, [user, setApiKey]);
+
   const handleUpdateApiKey = async () => {
     if (!apiKey.trim()) {
       setFeedback({
@@ -43,17 +69,23 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
       setFeedback({ message: "", type: null });
       
       if (user) {
+        // Encrypt the API key using the user's UID as part of the encryption
+        const encryptedKey = await encryptApiKey(apiKey);
+        
+        // Store the encrypted key in Firestore
         await updateDoc(doc(firestore, "users", user.uid), {
-          apiKey: apiKey,
+          encryptedApiKey: encryptedKey,
+          // Store a flag to indicate we're using encryption
+          isEncrypted: true
         });
         
         setFeedback({
-          message: "API Key updated successfully!",
+          message: "API Key updated and securely encrypted!",
           type: "success"
         });
         
         // Still call the external notification for when dialog closes
-        showNotification("API Key updated successfully!", "success");
+        showNotification("API Key securely updated!", "success");
       } else {
         setFeedback({
           message: "User not authenticated",
@@ -89,7 +121,7 @@ const ApiKeyCard: React.FC<ApiKeyCardProps> = ({
         
         <div className="api-key-form">
           <Input
-          type="password"
+            type="password"
             value={apiKey}
             onChange={(e) => {
               setApiKey(e.value);
